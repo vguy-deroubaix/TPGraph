@@ -27,9 +27,9 @@ public class Main4A {
           System.out.println("(Matrix)Outdegrees for vertices from 1 to " + indegree.length + " for the given digraph");
           Tools4A.printArray(outdegree);
     	  }
-        graphM.printGraphMat();
-        //graphM.transposed(true).printGraphMat();
-        graphM.transposed(false).printGraphList();
+        graphM.printGraph();
+        //graphM.transposed(true).printGraph();
+        graphM.transposed(false).printGraph();
         System.out.println("-----------------------------------------------------------------------------------------------");
 
    // If we choose the representation by adjacency lists

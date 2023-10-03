@@ -116,8 +116,9 @@ public class GraphM4A extends Graph{
   private GraphL4A transMatList(){
     if(this.weighted == 0){
       GraphL4A adjlist = new GraphL4A(this.adjmat.length,this.type,this.weighted,new Node4A[this.adjmat.length]);
+      for(int i=0;i<this.adjmat.length;i++)
+        adjlist.getAdjlist()[i] = null;
       for(int i=0;i<this.adjmat.length;i++){
-        adjlist.getAdjlist()[i] = new Node4A(i+1,null);
         for(int j=0;i<this.adjmat.length;j++){
           if(this.adjmat[i][j] == 1){
             adjlist.add(j,i);
@@ -127,9 +128,8 @@ public class GraphM4A extends Graph{
       return adjlist;
     } else {
       GraphL4A adjlistW = new GraphL4A(this.adjmat.length,this.type,this.weighted,new WeightedNode4A[this.adjmat.length]);
-      for(int i=0;i<this.adjmat.length;i++) {
-        adjlistW.getAdjlistW()[i] = new WeightedNode4A(i,null,this.adjmat[i][i]);
-      }
+      for(int i=0;i<this.adjmat.length;i++) 
+        adjlistW.getAdjlistW()[i] = null;
       for(int i=0;i<this.adjmat.length;i++){
         for(int j=0;j<this.adjmat.length;j++){
           if(this.adjmat[i][j] != 0.0){
@@ -141,30 +141,7 @@ public class GraphM4A extends Graph{
     }
   }
 
-  public ArrayList<> DFSNum(){
-    public void DFS(int source){
-      boolean[] visited = new boolean[this.adjmat.length];
-      ArrayList<Integer> order = new ArrayList<Integer>();
-      Arrays.fill(visited,false);
-      int s;
-      visited[source] = true;
-
-      for(int i=0;i<this.adjmat.length;i++){
-
-        for(int j=0;j<this.adjmat.length;j++){
-          s = this.matrix[source][j].intValue();
-          if(s!= 0 && visited[s]){
-            DFS(s);
-          }
-        }
-      }
-    }
-  }
-
-
-
-
-  public void printGraphMat() {
+  public void printGraph() {
     System.out.println("-----------------------------------------------");
       for(int i=0;i<this.adjmat.length;i++) {
         for(int j=0;j<this.adjmat.length;j++) {
@@ -173,10 +150,6 @@ public class GraphM4A extends Graph{
         System.out.println();
       }
       System.out.println("-----------------------------------------------");
-  }
-
-  public void printGraphList(){
-
   }
 
 

@@ -166,47 +166,64 @@ public class GraphL4A extends Graph{
 			return this.adjlist;
 		}
 
+		public Graph transposed(boolean ListMat){ // Matrix if true, List if false
+	    if(ListMat){
+	      return transListMat();
+	    } else {
+	      return transListList();
+	    }
+	  }
+
 		public void add(int i, int j)
       {
-          if (this.adjlist[i].getNext() != null)
-          	{
-              this.adjlist[i].setNext(new Node4A(j,this.adjlist[i].getNext()));
-            } else {
-							this.adjlist[i].setNext(new Node4A(j,null));
-						}
+				if(this.adjlist[i] == null){
+					this.adjlist[i] = new Node4A(j,null);
+				} else if (this.adjlist[i]!= null){
+					this.adjlist[i].setNext(new Node4A(j,this.adjlist[i].getNext()));
+				}
       }
 
 			public void addW(int i, int j,Float weight)
       {
-          if (this.adjlistW[i].getNext() != null)
-            {
-              this.adjlistW[i].setNext(new WeightedNode4A(j,this.adjlistW[i].getNext(),weight));
-            } else {
-							this.adjlistW[i].setNext(new WeightedNode4A(j,null,weight));
-						}
+				if(this.adjlistW[i] == null){
+					this.adjlistW[i] = new WeightedNode4A(j,null,weight);
+				} else if (this.adjlistW[i]!= null){
+					this.adjlistW[i].setNext(new WeightedNode4A(j,this.adjlistW[i].getNext(),weight));
+				}
       }
 
-			public void printGraphList(){
+			public void printGraph(){
 				if(this.weighted == 0){
+					Node4A tps;
 					for(int i=0;i<this.adjlist.length;i++){
-						if(this.adjlist[i].getNext() == null)
+						tps = this.adjlist[i];
+						if(this.adjlist[i] == null){
+							System.out.print((i+1) + "---> empty list");
+						} else {
 							System.out.print((i+1) + "---> ");
-						while(this.adjlist[i].getNext() != null){
-							System.out.print((this.adjlist[i].getVal()+1)+ "---> ");
 						}
+						while(tps != null){
+							System.out.print((tps.getVal()+1)+ "---> ");
+							tps = tps.getNext();
+							if(tps.getNext() == null)
+								System.out.print("---> null");
+						}
+						System.out.println();
 					} System.out.println();
 				} else {
 					WeightedNode4A tps;
 					for(int i=0;i<this.adjlistW.length;i++){
-						if(this.adjlistW[i].getNext() == null){
-							System.out.print((i+1) + "---> empty list");
-						}
 						tps = this.adjlistW[i];
-						while(tps.getNext() != null){
+						if(this.adjlistW[i] == null){
+							System.out.print((i+1) + "---> empty list");
+						} else {
+							System.out.print((i+1) + "---> ");
+					  }
+						while(tps != null){
 							System.out.print((tps.getVal()+1)+ "---> ");
 							tps = tps.getNext();
-							if(tps.getNext() == null)
-								System.out.print(tps.getVal()+1 + "---> null");
+							if(tps == null)
+								System.out.print("null");
 						}
 						System.out.println();
 					}
@@ -214,8 +231,5 @@ public class GraphL4A extends Graph{
 
 			}
 
-			public void printGraphMat(){
-
-			}
 
 }
